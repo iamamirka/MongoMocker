@@ -10,7 +10,7 @@ namespace Tests;
 
 public class BalanceControllerTests
 {
-    private readonly Mock<IAccountService> accountServiceMock = new();
+    private readonly Mock<IAccountsService> accountServiceMock = new();
     private readonly Mock<ILogger<BalancesController>> loggerMock = new();
 
     [Fact]

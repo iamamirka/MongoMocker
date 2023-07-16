@@ -3,20 +3,13 @@ using Service.Entities;
 
 namespace Service;
 
-public interface IAccountService
-{
-    public Task<Balance> GetAccountBalanceAsync(int account);
-    public Task DepositToAccountAsync(int account, decimal amount);
-    public Task WithdrawFromAccountAsync(int account, decimal amount);
-}
-
 /// <summary>
 ///     Тип для выполнения зпросов к базе данных.
 /// </summary>
 /// <remarks>
 ///     Данный тип не может работать так как не имеет подключения к реальной базе данных.
 /// </remarks>
-public class AccountsService : IAccountService
+public class AccountsService : IAccountsService
 {
     private readonly MongoClient client;
     private ILogger<AccountsService> logger;
@@ -31,7 +24,6 @@ public class AccountsService : IAccountService
     private IMongoCollection<Balance> Accounts => client
         .GetDatabase("Accounts")
         .GetCollection<Balance>("Balance");
-
 
     /// <summary>
     ///     Получение остатка на счёте.
@@ -60,9 +52,8 @@ public class AccountsService : IAccountService
     /// <param name="amount">Сумма снятия</param>
     /// <returns></returns>
     public Task WithdrawFromAccountAsync(int account, decimal amount) => UpdateAccountAmountAsync(account, -amount);
-    
+
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="account">Номер счета</param>
     /// <param name="amount">Величина изменения суммы средств</param>

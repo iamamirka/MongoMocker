@@ -6,31 +6,31 @@ namespace Service.Controllers;
 [Route("account")]
 public class BalancesController : ControllerBase
 {
-    private readonly IAccountService accountService;
+    private readonly IAccountsService accountsService;
     private readonly ILogger<BalancesController> logger;
 
-    public BalancesController(IAccountService accountService,
+    public BalancesController(IAccountsService accountsService,
         ILogger<BalancesController> logger)
     {
-        this.accountService = accountService;
+        this.accountsService = accountsService;
         this.logger = logger;
     }
 
     [HttpGet("")]
     public async Task<decimal?> GetAccountBalance(int account)
     {
-        return (await accountService.GetAccountBalanceAsync(account).ConfigureAwait(false))?.Amount;
+        return (await accountsService.GetAccountBalanceAsync(account).ConfigureAwait(false))?.Amount;
     }
 
     [HttpPost("{amount}")]
     public Task DepositToAccount(int account, decimal amount)
     {
-        return accountService.DepositToAccountAsync(account, amount);
+        return accountsService.DepositToAccountAsync(account, amount);
     }
 
     [HttpDelete("{amount}")]
     public Task WithdrawFromAccount(int account, decimal amount)
     {
-        return accountService.WithdrawFromAccountAsync(account, amount);
+        return accountsService.WithdrawFromAccountAsync(account, amount);
     }
 }
