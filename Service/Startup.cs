@@ -13,7 +13,7 @@ public class Startup
         IWebHostEnvironment env)
     {
         services.AddControllers();
-        services.AddScoped<DB>();
+        services.AddScoped<AccountsService>();
         services.AddScoped(sp =>
         {
             var options = sp.GetRequiredService<IConfiguration>();
